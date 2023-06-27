@@ -1,0 +1,20 @@
+{
+  "name": "visual-version-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@8.5.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.10.6"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
