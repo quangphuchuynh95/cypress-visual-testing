@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "react-refresh"
+  ],
+  "rules": {
+    "no-empty-pattern": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "react-refresh/only-export-components": "warn"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@cypress-visual-testing/cypress-workaround",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cypress open"
+  },
+  "dependencies": {
+    "cypress": "^12.16.0",
+    "@cypress-visual-testing/cypress-plugin": "*"
+  }
+}

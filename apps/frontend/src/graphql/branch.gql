@@ -1,0 +1,30 @@
+query AllBranches {
+  branches {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+
+query BranchScreenshots($branch: String!) {
+  branch(branchName: $branch) {
+    branchScreenshots {
+      id
+      fileKey
+      diffFileKey,
+      diffPixels,
+      diffMessage,
+      screenshot {
+        name
+        fileKey
+      }
+    }
+  }
+}
+
+mutation ApproveBranchScreenshot($branch: String!, $screenshot: String!) {
+  approveBranchScreenshot(branchName: $branch, screenshotName: $screenshot) {
+    id
+  }
+}

@@ -1,0 +1,54 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ScreenshotVersion {
+  id: Int!
+  message: String!
+  fileKey: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type Branch {
+  id: Int!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  branchScreenshots: [BranchScreenshot!]!
+}
+
+type BranchScreenshot {
+  id: Int!
+  fileKey: String!
+  diffFileKey: String
+  diffPixels: Int
+  diffMessage: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  screenshot: Screenshot!
+}
+
+type Screenshot {
+  id: Int!
+  name: String!
+  fileKey: String
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  versions: [ScreenshotVersion!]!
+}
+
+type Query {
+  screenshot(name: String!): Screenshot
+  branches: [Branch!]!
+  branch(branchName: String!): Branch!
+}
+
+type Mutation {
+  approveBranchScreenshot(branchName: String!, screenshotName: String!): BranchScreenshot
+}
