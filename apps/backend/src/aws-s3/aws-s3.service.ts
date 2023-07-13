@@ -26,7 +26,7 @@ export class AwsS3Service {
   }
 
   public async uploadFile(fileKey: string, file: Buffer, publicRead = false) {
-    const data = await this.s3Client.putObject({
+    await this.s3Client.putObject({
       ACL: publicRead ? 'public-read' : 'private',
       Bucket: this.bucket,
       Key: this.prefixing(fileKey),

@@ -5,7 +5,6 @@ import {
   UpdateEvent,
 } from 'typeorm';
 import { Screenshot } from '../entities/screenshot.entity';
-import { ScreenshotService } from '../screenshot.service';
 import { BranchScreenshotService } from '../../branch-screenshot/branch-screenshot.service';
 
 @EventSubscriber()

@@ -5,6 +5,12 @@
       "cache": false,
       "persistent": true
     },
-    "lint": {}
+    "lint": {},
+    "build": {
+      "inputs": [
+        "src",
+        "dist"
+      ]
+    }
   }
 }

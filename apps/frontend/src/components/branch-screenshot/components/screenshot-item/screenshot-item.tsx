@@ -43,7 +43,6 @@ export function ScreenshotItem({
   const color = useMemo((): MantineColor => {
     return branchScreenshot.diffMessage ? 'red.9' : 'green.9';
   }, [branchScreenshot.diffMessage]);
-  console.log(branchScreenshot);
 
   const onApprove = useCallback(() => {
     mutate({

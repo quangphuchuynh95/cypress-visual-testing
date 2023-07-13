@@ -1,6 +1,6 @@
 {
   "name": "@cypress-visual-testing/cypress-plugin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "private": false,
@@ -9,8 +9,8 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
-  "dependencies": {
-    "axios": "^1.4.0",
+  "dependencies": {},
+  "peerDependencies": {
     "cypress": "^12.16.0"
   },
   "devDependencies": {

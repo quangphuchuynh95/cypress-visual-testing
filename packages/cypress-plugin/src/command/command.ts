@@ -14,7 +14,9 @@ declare global {
   }
 }
 
-export interface CheckVisualOptions {}
+export interface CheckVisualOptions {
+  _?: unknown;
+}
 
 export const checkVisual = (
   subject: void | Document | Window | Cypress.JQueryWithSelector<HTMLElement>,

@@ -1,4 +1,3 @@
-import axios, { AxiosInstance } from 'axios';
 import { VisualPluginConfig } from '../plugin';
 import { readFileSync } from 'fs';
 
@@ -11,14 +10,13 @@ export interface BranchScreenshot {
 }
 
 export class VisualClient {
-  private httpClient: AxiosInstance;
   constructor(private config: VisualPluginConfig) {
-    this.httpClient = axios.create({
-      baseURL: config.backendUrl,
-      headers: {
-        'x-visual-token': config.token,
-      },
-    });
+    // this.httpClient = axios.create({
+    //   baseURL: config.backendUrl,
+    //   headers: {
+    //     'x-visual-token': config.token,
+    //   },
+    // });
   }
 
   public async uploadScreenshot({
@@ -31,19 +29,20 @@ export class VisualClient {
     //TODO: upload to s3 instead
     const formData = new FormData();
     formData.append('image', new Blob([readFileSync(imageFilePath)]), 's.xx');
-    const { data } = await this.httpClient.post<BranchScreenshot>(
-      `/branch-screenshot`,
-      formData,
+    const urlParams = new URLSearchParams({
+      screenshotName,
+      branchName: this.config.branch,
+    });
+    const response = await fetch(
+      `${this.config.backendUrl}/api/branch-screenshot?${urlParams.toString()}`,
       {
+        method: 'POST',
+        body: formData,
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        params: {
-          screenshotName,
-          branchName: this.config.branch,
+          'x-visual-token': this.config.token,
         },
       },
     );
-    return data;
+    return response.json() as Promise<BranchScreenshot>;
   }
 }

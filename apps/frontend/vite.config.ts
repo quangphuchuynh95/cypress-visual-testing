@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/graphql': 'http://localhost:3000/'
+      '/graphql': 'http://localhost:8080/'
     }
   }
 })

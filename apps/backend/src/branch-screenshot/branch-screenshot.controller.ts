@@ -3,16 +3,10 @@ import {
   Controller,
   Post,
   UseInterceptors,
-  UploadedFiles,
   UploadedFile,
 } from '@nestjs/common';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-} from '@nestjs/platform-express';
-import { AwsS3Service } from '../aws-s3/aws-s3.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { BranchScreenshotService } from './branch-screenshot.service';
-import * as path from 'path';
 
 @Controller('branch-screenshot')
 export class BranchScreenshotController {

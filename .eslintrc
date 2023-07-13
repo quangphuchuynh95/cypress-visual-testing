@@ -16,6 +16,7 @@
   "ignorePatterns": [
     "dist",
     ".eslintrc.js",
+    "ecosystem.config.js",
     "graphql/generated.ts"
   ],
   "rules": {

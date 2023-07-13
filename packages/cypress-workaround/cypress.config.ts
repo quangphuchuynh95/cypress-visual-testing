@@ -14,7 +14,7 @@ export default defineConfig({
         branch: 'hEllo',
         ...config,
         token: 'test-token',
-        backendUrl: 'http://localhost:3000',
+        backendUrl: 'http://localhost:8080',
       });
     },
   },

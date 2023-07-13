@@ -7,6 +7,7 @@ async function bootstrap() {
     name: 'DiffStatus',
   });
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.setGlobalPrefix('/api');
+  await app.listen(8080);
 }
 bootstrap();

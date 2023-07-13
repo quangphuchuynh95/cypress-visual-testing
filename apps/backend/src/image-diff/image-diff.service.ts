@@ -48,7 +48,11 @@ export class ImageDiffService {
         diffStatus = DiffStatus.NotTheSame;
         diffFileKey = `${uuidv1()}.png`;
         diffMessage = 'The image is difference with approved one';
-        await this.awsS3Service.uploadFile(diffFileKey, diff.data, true);
+        await this.awsS3Service.uploadFile(
+          diffFileKey,
+          PNG.sync.write(diff),
+          true,
+        );
       }
       return {
         diffStatus,

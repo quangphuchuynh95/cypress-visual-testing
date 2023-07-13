@@ -8,7 +8,6 @@ import {
 import { BranchScreenshot } from './entities/branch-screenshot.entity';
 import { Screenshot } from '../screenshot/entities/screenshot.entity';
 import { BranchScreenshotService } from './branch-screenshot.service';
-import { Branch } from '../branch/entities/branch.entity';
 
 @Resolver(() => BranchScreenshot)
 export class BranchScreenshotResolver {

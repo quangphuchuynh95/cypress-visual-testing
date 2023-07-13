@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ScreenshotService } from './screenshot.service';
 import { ScreenshotVersionService } from './screenshot-version.service';
 import { Query } from '@nestjs/common/decorators/http/route-params.decorator';

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BranchScreenshot } from './entities/branch-screenshot.entity';
-import { Branch } from '../branch/entities/branch.entity';
 import { v1 as uuidv1 } from 'uuid';
 import { AwsS3Service } from '../aws-s3/aws-s3.service';
 import { ScreenshotService } from '../screenshot/screenshot.service';
