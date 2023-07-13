@@ -36,6 +36,6 @@
 //   }
 // }
 
-import { addCheckVisualCommand } from '@cypress-visual-testing/cypress-plugin/src/command';
+import { addCheckVisualCommand } from '@cypress-visual-testing/cypress-plugin';
 
 addCheckVisualCommand();

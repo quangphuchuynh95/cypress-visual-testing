@@ -1,6 +1,6 @@
 {
   "name": "@cypress-visual-testing/cypress-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "private": false,

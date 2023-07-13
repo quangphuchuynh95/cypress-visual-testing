@@ -1,4 +1,3 @@
-import JQueryWithSelector = Cypress.JQueryWithSelector;
 import { COMPARE_TASK, CompareTaskArgs, CompareTaskReturn } from '../plugin';
 
 declare global {
@@ -18,7 +17,7 @@ declare global {
 export interface CheckVisualOptions {}
 
 export const checkVisual = (
-  subject: void | Document | Window | JQueryWithSelector<HTMLElement>,
+  subject: void | Document | Window | Cypress.JQueryWithSelector<HTMLElement>,
   screenshotName: string,
   opts?: Partial<
     Cypress.Loggable &
