@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Screenshot } from '../../screenshot/entities/screenshot.entity';
 import { Branch } from '../../branch/entities/branch.entity';
-import { DiffResult } from '../../image-diff-service/image-diff-service.service';
+import { DiffResult, DiffStatus } from '../../image-diff/image-diff.service';
 
 @ObjectType()
 @Entity()
@@ -23,6 +23,10 @@ export class BranchScreenshot implements DiffResult {
   @Column()
   @Field(() => String)
   fileKey: string;
+
+  @Column()
+  @Field(() => DiffStatus)
+  diffStatus: DiffStatus;
 
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })

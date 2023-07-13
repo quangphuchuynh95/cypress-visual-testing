@@ -27,14 +27,14 @@ export function compareTask(
         message: 'We have a problem when getting the screenshot',
       };
     }
-    const data = await sharedValue.client.uploadAndCheckScreenshot({
+    const data = await sharedValue.client.uploadScreenshot({
       screenshotName: screenshotName,
       imageFilePath: screenshot.currentVersionPath,
     });
-    console.log(data);
+
     return {
-      pass: true,
-      message: 'We have a problem when getting the screenshot',
+      pass: data.diffStatus === 'ExactlyTheSame',
+      message: data.diffMessage,
     };
   };
 }

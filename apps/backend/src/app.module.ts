@@ -12,7 +12,7 @@ import { BranchScreenshotModule } from './branch-screenshot/branch-screenshot.mo
 import { BranchScreenshot } from './branch-screenshot/entities/branch-screenshot.entity';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AwsS3Module } from './aws-s3/aws-s3.module';
-import { ImageDiffServiceModule } from './image-diff-service/image-diff-service.module';
+import { ImageDiffModule } from './image-diff/image-diff.module';
 
 @Module({
   imports: [
@@ -40,7 +40,7 @@ import { ImageDiffServiceModule } from './image-diff-service/image-diff-service.
     BranchModule,
     BranchScreenshotModule,
     AwsS3Module,
-    ImageDiffServiceModule,
+    ImageDiffModule,
   ],
 })
 export class AppModule {}

@@ -8,7 +8,7 @@ import { BranchScreenshotController } from './branch-screenshot.controller';
 import { AwsS3Module } from '../aws-s3/aws-s3.module';
 import { BranchModule } from '../branch/branch.module';
 import { BranchScreenshotSubscriber } from './subscribers/branch-screenshot.subscriber';
-import { ImageDiffServiceModule } from '../image-diff-service/image-diff-service.module';
+import { ImageDiffModule } from '../image-diff/image-diff.module';
 
 @Module({
   providers: [
@@ -18,7 +18,7 @@ import { ImageDiffServiceModule } from '../image-diff-service/image-diff-service
   ],
   imports: [
     TypeOrmModule.forFeature([BranchScreenshot]),
-    ImageDiffServiceModule,
+    ImageDiffModule,
     forwardRef(() => ScreenshotModule),
     BranchModule,
     AwsS3Module,

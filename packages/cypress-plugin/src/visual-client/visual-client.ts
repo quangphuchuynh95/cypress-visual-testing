@@ -1,8 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { VisualPluginConfig } from '../plugin';
 import { readFileSync } from 'fs';
-export interface ScreenshotData {
-  url: string;
+
+export interface BranchScreenshot {
+  diffStatus: 'ExactlyTheSame' | string;
+  fileKey: string;
+  diffFileKey?: string;
+  diffPixels?: number;
+  diffMessage: string;
 }
 
 export class VisualClient {
@@ -16,7 +21,7 @@ export class VisualClient {
     });
   }
 
-  public async uploadAndCheckScreenshot({
+  public async uploadScreenshot({
     screenshotName,
     imageFilePath,
   }: {
@@ -26,7 +31,7 @@ export class VisualClient {
     //TODO: upload to s3 instead
     const formData = new FormData();
     formData.append('image', new Blob([readFileSync(imageFilePath)]), 's.xx');
-    const { data } = await this.httpClient.post<ScreenshotData | null>(
+    const { data } = await this.httpClient.post<BranchScreenshot>(
       `/branch-screenshot`,
       formData,
       {

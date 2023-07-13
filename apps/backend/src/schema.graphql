@@ -26,12 +26,20 @@ type Branch {
 type BranchScreenshot {
   id: Int!
   fileKey: String!
+  diffStatus: DiffStatus!
   diffFileKey: String
   diffPixels: Int
   diffMessage: String!
   createdAt: Timestamp!
   updatedAt: Timestamp!
   screenshot: Screenshot!
+}
+
+enum DiffStatus {
+  ExactlyTheSame
+  MissingOriginFile
+  FileReadingError
+  NotTheSame
 }
 
 type Screenshot {

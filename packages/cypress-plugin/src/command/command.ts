@@ -40,10 +40,10 @@ export const checkVisual = (
     screenshotName: fullScreenshotName,
   };
   cy.task<CompareTaskReturn>(COMPARE_TASK, args).then(({ pass, message }) => {
-    console.log(pass);
-    if (!pass) {
-      throw new Error(message || 'Compare image failed');
-    }
+    expect(pass, message).to.be.true;
+    // if (!pass) {
+    //   throw new Error(message || 'Compare image failed');
+    // }
   });
 };
 

@@ -7,7 +7,7 @@ import { v1 as uuidv1 } from 'uuid';
 import { AwsS3Service } from '../aws-s3/aws-s3.service';
 import { ScreenshotService } from '../screenshot/screenshot.service';
 import { BranchService } from '../branch/branch.service';
-import { ImageDiffServiceService } from '../image-diff-service/image-diff-service.service';
+import { ImageDiffService } from '../image-diff/image-diff.service';
 import { Screenshot } from '../screenshot/entities/screenshot.entity';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class BranchScreenshotService {
   constructor(
     @InjectRepository(BranchScreenshot)
     private branchScreenshotRepository: Repository<BranchScreenshot>,
-    private imageDiffServiceService: ImageDiffServiceService,
+    private imageDiffServiceService: ImageDiffService,
     private awsS3Service: AwsS3Service,
     private screenshotService: ScreenshotService,
     private branchService: BranchService,
