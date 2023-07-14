@@ -1,5 +1,4 @@
 import {
-  Anchor,
   Button,
   Group,
   Image,
@@ -16,8 +15,9 @@ import {
 } from '../../../../graphql';
 import { useDisclosure } from '@mantine/hooks';
 import { createUrl } from '../../../../helpers/s3.ts';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { ZoomArea, ZoomValue } from '../../../zoom-area';
 
 export interface ScreenshotItemProps {
   branch: string;
@@ -28,6 +28,11 @@ export function ScreenshotItem({
   branchScreenshot,
   branch,
 }: ScreenshotItemProps) {
+  const [zoomValue, setZoomValue] = useState<ZoomValue>({
+    zoom: 1,
+    translateX: 0,
+    translateY: 0,
+  });
   const [opened, { open, close }] = useDisclosure(false);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useApproveBranchScreenshotMutation({
@@ -67,38 +72,29 @@ export function ScreenshotItem({
         <Group noWrap align="start">
           {branchScreenshot.diffMessage &&
             branchScreenshot.screenshot.fileKey && (
-              <Anchor
-                target="_blank"
-                href={createUrl(branchScreenshot.screenshot.fileKey).toString()}
-              >
+              <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
                 <Image
-                  w={500}
+                  w="100%"
                   src={createUrl(
                     branchScreenshot.screenshot.fileKey,
                   ).toString()}
                 />
-              </Anchor>
+              </ZoomArea>
             )}
           {branchScreenshot.diffMessage && branchScreenshot.diffFileKey && (
-            <Anchor
-              target="_blank"
-              href={createUrl(branchScreenshot.diffFileKey).toString()}
-            >
+            <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
               <Image
-                w={500}
+                w="100%"
                 src={createUrl(branchScreenshot.diffFileKey).toString()}
               />
-            </Anchor>
+            </ZoomArea>
           )}
-          <Anchor
-            target="_blank"
-            href={createUrl(branchScreenshot.fileKey).toString()}
-          >
+          <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
             <Image
-              w={500}
+              w="100%"
               src={createUrl(branchScreenshot.fileKey).toString()}
             />
-          </Anchor>
+          </ZoomArea>
         </Group>
 
         <Group mt="xl">

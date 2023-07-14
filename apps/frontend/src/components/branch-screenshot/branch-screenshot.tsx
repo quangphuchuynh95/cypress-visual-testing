@@ -19,9 +19,8 @@ export function BranchScreenshot({ branch }: BranchScreenshotProps) {
       {isSuccess && branchScreenshots && (
         <List listStyleType="disc">
           {branchScreenshots.map((branchScreenshot) => (
-            <List.Item>
+            <List.Item key={branchScreenshot.id}>
               <ScreenshotItem
-                key={branchScreenshot.id}
                 branch={branch}
                 branchScreenshot={branchScreenshot}
               />
