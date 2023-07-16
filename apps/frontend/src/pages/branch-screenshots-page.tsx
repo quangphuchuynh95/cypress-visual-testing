@@ -13,7 +13,15 @@ export default function BranchScreenshotsPage() {
       return cloned;
     });
   };
+  const onChangeScreenshotName = (value: string | null) => {
+    setSearchParams((old) => {
+      const cloned = new URLSearchParams(old.toString());
+      cloned.set('screenshot', value ?? '');
+      return cloned;
+    });
+  };
   const branchName = searchParams.get('branch');
+  const screenshotName = searchParams.get('screenshot');
   return (
     <Box>
       <Stack spacing="xs">
@@ -27,7 +35,16 @@ export default function BranchScreenshotsPage() {
             )}
           />
         </Box>
-        <Box>{branchName && <BranchScreenshot branch={branchName} />}</Box>
+        <Box>
+          {branchName && (
+            <BranchScreenshot
+              screenshot={screenshotName}
+              branch={branchName}
+              onClosePopup={() => onChangeScreenshotName(null)}
+              onChangePopup={onChangeScreenshotName}
+            />
+          )}
+        </Box>
       </Stack>
     </Box>
   );

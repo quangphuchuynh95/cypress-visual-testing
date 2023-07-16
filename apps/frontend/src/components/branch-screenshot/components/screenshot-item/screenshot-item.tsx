@@ -13,27 +13,31 @@ import {
   useApproveBranchScreenshotMutation,
   useBranchScreenshotsQuery,
 } from '../../../../graphql';
-import { useDisclosure } from '@mantine/hooks';
 import { createUrl } from '../../../../helpers/s3.ts';
 import { useCallback, useMemo, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { ZoomArea, ZoomValue } from '../../../zoom-area';
 
 export interface ScreenshotItemProps {
+  active: boolean;
   branch: string;
   branchScreenshot: BranchScreenshotsQuery['branch']['branchScreenshots'][number];
+  onClose: () => void;
+  onClick: (e: React.MouseEvent, screenshot: string) => void;
 }
 
 export function ScreenshotItem({
+  active,
   branchScreenshot,
   branch,
+  onClick,
+  onClose,
 }: ScreenshotItemProps) {
   const [zoomValue, setZoomValue] = useState<ZoomValue>({
     zoom: 1,
     translateX: 0,
     translateY: 0,
   });
-  const [opened, { open, close }] = useDisclosure(false);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useApproveBranchScreenshotMutation({
     onSuccess() {
@@ -61,8 +65,8 @@ export function ScreenshotItem({
       <Modal
         size="auto"
         w={1000}
-        opened={opened}
-        onClose={close}
+        opened={active}
+        onClose={onClose}
         title={branchScreenshot.screenshot.name}
       >
         <LoadingOverlay visible={isLoading} />
@@ -103,7 +107,9 @@ export function ScreenshotItem({
           </Button>
         </Group>
       </Modal>
-      <UnstyledButton onClick={open}>
+      <UnstyledButton
+        onClick={(e) => onClick(e, branchScreenshot.screenshot.name)}
+      >
         <Text color={color}>{branchScreenshot.screenshot.name}</Text>
       </UnstyledButton>
     </>

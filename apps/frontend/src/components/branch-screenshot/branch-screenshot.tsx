@@ -4,9 +4,17 @@ import { ScreenshotItem } from './components/screenshot-item';
 
 export interface BranchScreenshotProps {
   branch: string;
+  screenshot: string | null;
+  onClosePopup: () => void;
+  onChangePopup: (screenshot: string) => void;
 }
 
-export function BranchScreenshot({ branch }: BranchScreenshotProps) {
+export function BranchScreenshot({
+  branch,
+  screenshot,
+  onChangePopup,
+  onClosePopup,
+}: BranchScreenshotProps) {
   const { isSuccess, data, isLoading } = useBranchScreenshotsQuery({
     branch,
   });
@@ -21,8 +29,14 @@ export function BranchScreenshot({ branch }: BranchScreenshotProps) {
           {branchScreenshots.map((branchScreenshot) => (
             <List.Item key={branchScreenshot.id}>
               <ScreenshotItem
+                active={
+                  !!screenshot &&
+                  screenshot === branchScreenshot.screenshot.name
+                }
                 branch={branch}
                 branchScreenshot={branchScreenshot}
+                onClose={onClosePopup}
+                onClick={(_, screenshot) => onChangePopup(screenshot)}
               />
             </List.Item>
           ))}
