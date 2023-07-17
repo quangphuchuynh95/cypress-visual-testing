@@ -21,9 +21,13 @@ export class ScreenshotVersionService {
     });
   }
 
-  // create(createScreenshotInput: CreateScreenshotInput) {
-  //   return 'This action adds a new screenshot';
-  // }
+  createVersion(screenshot: Screenshot) {
+    return this.screenshotVersionRepository.save({
+      screenshot: screenshot,
+      fileKey: screenshot.fileKey,
+      message: '',
+    });
+  }
 
   // findOne(id: number) {
   //   return `This action returns a #${id} screenshot`;

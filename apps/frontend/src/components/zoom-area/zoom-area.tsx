@@ -96,10 +96,6 @@ export function ZoomArea({
   return (
     <Box
       {...props}
-      style={{
-        // transformOrigin: 'top left',
-        transform: `scale(${value.zoom}, ${value.zoom}) translateX(${value.translateX}px) translateY(${value.translateY}px)`,
-      }}
       sx={{ overflow: 'hidden' }}
       onWheel={onWheelZoom}
       onPointerDown={onMouseDown}
@@ -108,7 +104,14 @@ export function ZoomArea({
       onPointerCancel={onMouseUp}
       onPointerMove={onMouseMove}
     >
-      {children}
+      <Box
+        style={{
+          // transformOrigin: 'top left',
+          transform: `scale(${value.zoom}, ${value.zoom}) translateX(${value.translateX}px) translateY(${value.translateY}px)`,
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }

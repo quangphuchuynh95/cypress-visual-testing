@@ -76,7 +76,7 @@ export function ScreenshotItem({
         <Group noWrap align="start">
           {branchScreenshot.diffMessage &&
             branchScreenshot.screenshot.fileKey && (
-              <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
+              <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
                 <Image
                   w="100%"
                   src={createUrl(
@@ -86,14 +86,14 @@ export function ScreenshotItem({
               </ZoomArea>
             )}
           {branchScreenshot.diffMessage && branchScreenshot.diffFileKey && (
-            <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
+            <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
               <Image
                 w="100%"
                 src={createUrl(branchScreenshot.diffFileKey).toString()}
               />
             </ZoomArea>
           )}
-          <ZoomArea h={300} value={zoomValue} onChange={setZoomValue}>
+          <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
             <Image
               w="100%"
               src={createUrl(branchScreenshot.fileKey).toString()}

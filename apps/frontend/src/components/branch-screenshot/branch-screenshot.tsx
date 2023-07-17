@@ -1,6 +1,7 @@
 import { useBranchScreenshotsQuery } from '../../graphql';
 import { Box, List, LoadingOverlay } from '@mantine/core';
 import { ScreenshotItem } from './components/screenshot-item';
+import { compareString } from '../../helpers/array.ts';
 
 export interface BranchScreenshotProps {
   branch: string;
@@ -15,11 +16,21 @@ export function BranchScreenshot({
   onChangePopup,
   onClosePopup,
 }: BranchScreenshotProps) {
-  const { isSuccess, data, isLoading } = useBranchScreenshotsQuery({
-    branch,
-  });
-
-  const branchScreenshots = data?.branch?.branchScreenshots;
+  const {
+    isSuccess,
+    data: branchScreenshots = [],
+    isLoading,
+  } = useBranchScreenshotsQuery(
+    {
+      branch,
+    },
+    {
+      select: (data) =>
+        (data?.branch?.branchScreenshots || [])?.sort((item1, item2) =>
+          compareString(item1.screenshot.name, item2.screenshot.name),
+        ),
+    },
+  );
 
   return (
     <Box>
