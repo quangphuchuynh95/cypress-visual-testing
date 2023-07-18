@@ -25,10 +25,6 @@ export class ScreenshotSubscriber
     return Screenshot;
   }
 
-  async afterInsert(event: InsertEvent<Screenshot>) {
-    await this.screenshotVersionService.createVersion(event.entity);
-  }
-
   async afterUpdate(event: UpdateEvent<Screenshot>) {
     const newFileKey = event.entity?.fileKey;
     if (newFileKey !== event.databaseEntity.fileKey) {
