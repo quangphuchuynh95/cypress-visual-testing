@@ -8,8 +8,8 @@
     "lint": {},
     "build": {
       "inputs": [
-        "src",
-        "dist"
+        "src/**",
+        "dist/**"
       ]
     }
   }
