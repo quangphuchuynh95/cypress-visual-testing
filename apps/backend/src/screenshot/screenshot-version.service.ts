@@ -21,11 +21,11 @@ export class ScreenshotVersionService {
     });
   }
 
-  createVersion(screenshot: Screenshot) {
+  createVersion(screenshot: Screenshot, message: string) {
     return this.screenshotVersionRepository.save({
       screenshot: screenshot,
       fileKey: screenshot.fileKey,
-      message: '',
+      message,
     });
   }
 

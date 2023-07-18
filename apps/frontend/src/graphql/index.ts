@@ -51,11 +51,19 @@ export type BranchScreenshot = {
   diffFileKey?: Maybe<Scalars['String']['output']>;
   diffMessage: Scalars['String']['output'];
   diffPixels?: Maybe<Scalars['Int']['output']>;
+  diffStatus: DiffStatus;
   fileKey: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   screenshot: Screenshot;
   updatedAt: Scalars['Timestamp']['output'];
 };
+
+export enum DiffStatus {
+  ExactlyTheSame = 'ExactlyTheSame',
+  FileReadingError = 'FileReadingError',
+  MissingOriginFile = 'MissingOriginFile',
+  NotTheSame = 'NotTheSame',
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -64,6 +72,7 @@ export type Mutation = {
 
 export type MutationApproveBranchScreenshotArgs = {
   branchName: Scalars['String']['input'];
+  message: Scalars['String']['input'];
   screenshotName: Scalars['String']['input'];
 };
 
@@ -129,6 +138,7 @@ export type BranchScreenshotsQuery = {
       diffFileKey?: string | null;
       diffPixels?: number | null;
       diffMessage: string;
+      diffStatus: DiffStatus;
       screenshot: {
         __typename?: 'Screenshot';
         name: string;
@@ -141,6 +151,7 @@ export type BranchScreenshotsQuery = {
 export type ApproveBranchScreenshotMutationVariables = Exact<{
   branch: Scalars['String']['input'];
   screenshot: Scalars['String']['input'];
+  message: Scalars['String']['input'];
 }>;
 
 export type ApproveBranchScreenshotMutation = {
@@ -185,6 +196,7 @@ export const BranchScreenshotsDocument = `
       diffFileKey
       diffPixels
       diffMessage
+      diffStatus
       screenshot {
         name
         fileKey
@@ -213,8 +225,12 @@ useBranchScreenshotsQuery.getKey = (
   variables: BranchScreenshotsQueryVariables,
 ) => ['BranchScreenshots', variables];
 export const ApproveBranchScreenshotDocument = `
-    mutation ApproveBranchScreenshot($branch: String!, $screenshot: String!) {
-  approveBranchScreenshot(branchName: $branch, screenshotName: $screenshot) {
+    mutation ApproveBranchScreenshot($branch: String!, $screenshot: String!, $message: String!) {
+  approveBranchScreenshot(
+    branchName: $branch
+    screenshotName: $screenshot
+    message: $message
+  ) {
     id
   }
 }

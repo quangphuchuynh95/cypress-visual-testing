@@ -7,7 +7,6 @@ import {
 import { Screenshot } from '../entities/screenshot.entity';
 import { BranchScreenshotService } from '../../branch-screenshot/branch-screenshot.service';
 import { ScreenshotVersionService } from '../screenshot-version.service';
-import { InsertEvent } from 'typeorm/subscriber/event/InsertEvent';
 
 @EventSubscriber()
 export class ScreenshotSubscriber
@@ -27,9 +26,11 @@ export class ScreenshotSubscriber
 
   async afterUpdate(event: UpdateEvent<Screenshot>) {
     const newFileKey = event.entity?.fileKey;
+    const message = event?.queryRunner?.data?.message ?? '';
     if (newFileKey !== event.databaseEntity.fileKey) {
       await this.screenshotVersionService.createVersion(
         event.entity as Screenshot,
+        message,
       );
 
       // Update branch screenshots

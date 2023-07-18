@@ -35,9 +35,13 @@ export class ScreenshotService {
   //   return `This action returns a #${id} screenshot`;
   // }
 
-  updateFileKey(screenshot: Screenshot, fileKey: string) {
+  updateFileKey(screenshot: Screenshot, fileKey: string, message: string) {
     screenshot.fileKey = fileKey;
-    return this.screenshotRepository.save(screenshot);
+    return this.screenshotRepository.save(screenshot, {
+      data: {
+        message,
+      },
+    });
   }
 
   // remove(id: number) {

@@ -5,7 +5,9 @@ import {
   LoadingOverlay,
   MantineColor,
   Modal,
+  Stack,
   Text,
+  Textarea,
   UnstyledButton,
 } from '@mantine/core';
 import {
@@ -17,6 +19,7 @@ import { createUrl } from '../../../../helpers/s3.ts';
 import { useCallback, useMemo, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { ZoomArea, ZoomValue } from '../../../zoom-area';
+import { isScreenshotApprovalNecessary } from '../../../../graphql/helpers.ts';
 
 export interface ScreenshotItemProps {
   active: boolean;
@@ -24,6 +27,8 @@ export interface ScreenshotItemProps {
   branchScreenshot: BranchScreenshotsQuery['branch']['branchScreenshots'][number];
   onClose: () => void;
   onClick: (e: React.MouseEvent, screenshot: string) => void;
+  // hasNext: boolean;
+  // onClickNext: boolean;
 }
 
 export function ScreenshotItem({
@@ -33,6 +38,7 @@ export function ScreenshotItem({
   onClick,
   onClose,
 }: ScreenshotItemProps) {
+  const [message, setMessage] = useState('');
   const [zoomValue, setZoomValue] = useState<ZoomValue>({
     zoom: 1,
     translateX: 0,
@@ -41,6 +47,7 @@ export function ScreenshotItem({
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useApproveBranchScreenshotMutation({
     onSuccess() {
+      setMessage('');
       queryClient.refetchQueries(
         useBranchScreenshotsQuery.getKey({
           branch,
@@ -55,10 +62,13 @@ export function ScreenshotItem({
 
   const onApprove = useCallback(() => {
     mutate({
+      message,
       screenshot: branchScreenshot.screenshot.name,
       branch: branch,
     });
-  }, [branch, branchScreenshot.screenshot.name, mutate]);
+  }, [branch, branchScreenshot.screenshot.name, message, mutate]);
+
+  const isApprovalNecessary = isScreenshotApprovalNecessary(branchScreenshot);
 
   return (
     <>
@@ -74,18 +84,15 @@ export function ScreenshotItem({
           <Text color="red.9">{branchScreenshot.diffMessage}</Text>
         )}
         <Group noWrap align="start">
-          {branchScreenshot.diffMessage &&
-            branchScreenshot.screenshot.fileKey && (
-              <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
-                <Image
-                  w="100%"
-                  src={createUrl(
-                    branchScreenshot.screenshot.fileKey,
-                  ).toString()}
-                />
-              </ZoomArea>
-            )}
-          {branchScreenshot.diffMessage && branchScreenshot.diffFileKey && (
+          {isApprovalNecessary && !!branchScreenshot.screenshot.fileKey && (
+            <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
+              <Image
+                w="100%"
+                src={createUrl(branchScreenshot.screenshot.fileKey).toString()}
+              />
+            </ZoomArea>
+          )}
+          {isApprovalNecessary && !!branchScreenshot.diffFileKey && (
             <ZoomArea h={500} value={zoomValue} onChange={setZoomValue}>
               <Image
                 w="100%"
@@ -102,9 +109,17 @@ export function ScreenshotItem({
         </Group>
 
         <Group mt="xl">
-          <Button variant="outline" onClick={onApprove}>
-            Approve
-          </Button>
+          {isApprovalNecessary && (
+            <Stack>
+              <Textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <Button variant="outline" onClick={onApprove}>
+                Approve
+              </Button>
+            </Stack>
+          )}
         </Group>
       </Modal>
       <UnstyledButton

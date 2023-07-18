@@ -114,9 +114,11 @@ export class BranchScreenshotService {
   public async approveBranchScreenshot({
     branchName,
     screenshotName,
+    message,
   }: {
     branchName: string;
     screenshotName: string;
+    message: string;
   }) {
     const branchScreenshot = await this.branchScreenshotRepository.findOne({
       where: {
@@ -138,6 +140,7 @@ export class BranchScreenshotService {
     await this.screenshotService.updateFileKey(
       branchScreenshot.screenshot,
       branchScreenshot.fileKey,
+      message,
     );
     return branchScreenshot;
   }

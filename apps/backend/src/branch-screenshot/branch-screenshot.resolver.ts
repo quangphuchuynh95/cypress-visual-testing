@@ -22,13 +22,17 @@ export class BranchScreenshotResolver {
 
   @Mutation(() => BranchScreenshot, { nullable: true })
   approveBranchScreenshot(
-    @Args({ name: 'branchName', type: () => String }) branchName: string,
-    @Args({ name: 'screenshotName', type: () => String })
+    @Args('branchName')
+    branchName: string,
+    @Args('screenshotName')
     screenshotName: string,
+    @Args('message')
+    message: string,
   ) {
     return this.branchScreenshotService.approveBranchScreenshot({
       branchName,
       screenshotName,
+      message,
     });
   }
 }

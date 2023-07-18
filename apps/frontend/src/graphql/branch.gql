@@ -15,6 +15,7 @@ query BranchScreenshots($branch: String!) {
       diffFileKey,
       diffPixels,
       diffMessage,
+      diffStatus,
       screenshot {
         name
         fileKey
@@ -23,8 +24,8 @@ query BranchScreenshots($branch: String!) {
   }
 }
 
-mutation ApproveBranchScreenshot($branch: String!, $screenshot: String!) {
-  approveBranchScreenshot(branchName: $branch, screenshotName: $screenshot) {
+mutation ApproveBranchScreenshot($branch: String!, $screenshot: String!, $message: String!) {
+  approveBranchScreenshot(branchName: $branch, screenshotName: $screenshot, message: $message) {
     id
   }
 }
